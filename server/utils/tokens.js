@@ -21,21 +21,25 @@ export function randomToken() {
 
 export function setAuthCookies(res, accessToken, refreshToken) {
   const secure = process.env.NODE_ENV === "production";
+  const sameSite = secure ? "none" : "lax";
   res.cookie("accessToken", accessToken, {
     httpOnly: true,
-    sameSite: "lax",
+    sameSite,
     secure,
     maxAge: 15 * 60 * 1000
   });
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
-    sameSite: "lax",
+    sameSite,
     secure,
     maxAge: 7 * 24 * 60 * 60 * 1000
   });
 }
 
 export function clearAuthCookies(res) {
-  res.clearCookie("accessToken");
-  res.clearCookie("refreshToken");
+  const secure = process.env.NODE_ENV === "production";
+  const sameSite = secure ? "none" : "lax";
+  const options = { httpOnly: true, sameSite, secure };
+  res.clearCookie("accessToken", options);
+  res.clearCookie("refreshToken", options);
 }
