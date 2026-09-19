@@ -91,7 +91,7 @@ app.get("/r/:shortCode", redirectLimiter, async (req, res, next) => {
 if (process.env.NODE_ENV === "production") {
   const clientDist = path.resolve(__dirname, "../client/dist");
   app.use(express.static(clientDist));
-  app.get("*", (_req, res) => res.sendFile(path.join(clientDist, "index.html")));
+  app.get("/{*splat}", (_req, res) => res.sendFile(path.join(clientDist, "index.html")));
 }
 
 app.use((err, _req, res, _next) => {

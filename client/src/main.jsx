@@ -34,7 +34,7 @@ import { Input, Textarea } from "./components/ui/Input.jsx";
 import { Badge } from "./components/ui/Badge.jsx";
 import "./styles.css";
 
-const API = "";
+const API = import.meta.env.VITE_API_URL || "";
 
 const defaultBioLinks = [
   { label: "Portfolio", url: "https://ravish.dev" },
